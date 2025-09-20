@@ -1,4 +1,4 @@
-# PathFinder Pro
+# HybridRoute-Optimizer
 
 ## 📜 许可证
 
@@ -156,4 +156,5 @@ RoutePlanner是一个功能强大的智能路径规划系统，专注于解决�
 
 - 高德地图API提供地理信息和路径规划服务
 - matplotlib提供数据可视化支持
+
 - tkinter和PyQt提供GUI开发框架
