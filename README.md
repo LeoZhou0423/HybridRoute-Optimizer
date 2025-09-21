@@ -1,174 +1,160 @@
-HybridRoute-Optimizer
-📜 License
-This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+# HybridRoute-Optimizer
 
-You are free to:
-✅ Use, study, and run the software freely
+## 📜 许可证
 
-✅ Modify and extend functionality
+本项目采用 **GNU General Public License v3.0 (GPL-3.0)** 许可证。
 
-✅ Distribute original or modified versions
+### 你可以：
+- ✅ 自由使用、学习和运行本软件
+- ✅ 自由修改和扩展功能
+- ✅ 自由分发原版或修改版
 
-You must:
-📝 Provide explicit attribution to the original author
+### 你必须：
+- 📝 **明确标注原始作者**（署名）
+- 🔓 **保持开源**：任何衍生作品必须使用相同许可证
+- 🛡️ **不得申请专利**：不得就本软件或衍生作品申请专利
 
-🔓 Keep open source: Any derivative works must use the same license
+### 完整许可证文本：
+详见 [LICENSE](LICENSE) 文件或访问 [GNU官方网站](https://www.gnu.org/licenses/gpl-3.0.html)
 
-🛡️ No patent claims: You may not patent this software or its derivatives
+## ⚠️ 重要提示
 
-Full license text:
-See the LICENSE file or visit the GNU official website
+任何基于本项目的衍生作品都必须：
+1. 明确标注原始项目地址和作者
+2. 使用相同的GPL-3.0许可证开源
+3. 不得就相关技术申请专利或进行专利诉讼
 
-⚠️ Important Notes
-Any derivative works based on this project must:
+**违反许可证条款将面临法律责任**
 
-Clearly attribute the original project URL and author
+## 项目概述
+RoutePlanner是一个功能强大的智能路径规划系统，专注于解决旅行商问题(TSP)和带约束的路径优化问题。该系统集成了多种优化算法、高德地图API和交互式用户界面，提供从坐标点输入到最优路径可视化的完整解决方案。
 
-Be open-sourced under the same GPL-3.0 license
+## 核心功能
 
-Not file patents or initiate patent litigation related to this technology
+### 1. 算法优化引擎
+- **模拟退火算法**：高效求解大规模路径优化问题
+- **精确算法**：对于小规模问题(≤12个点)提供精确最优解
+- **局部搜索优化**：结合2-opt邻域搜索进一步改进路径质量
+- **距离缓存机制**：提高重复计算场景下的性能
 
-Violation of license terms may lead to legal consequences
+### 2. 地图集成
+- **高德地图API**：获取实际道路距离、行驶时间和详细路线
+- **交互式地图可视化**：直观展示候选点和最优路径
+- **多平台支持**：兼容独立浏览器显示和PyQt集成显示
 
-Project Overview
-RoutePlanner is a powerful intelligent path planning system focused on solving the Traveling Salesman Problem (TSP) and constrained route optimization problems. The system integrates multiple optimization algorithms, Amap API, and an interactive user interface, providing a complete solution from coordinate input to optimal route visualization.
+### 3. 用户界面
+- **交互式控制面板**：支持参数调整、优化目标选择和结果展示
+- **数据导入**：从文本文件读取起点、途经点和终点数据
+- **多目标优化**：支持基于直线距离、驾车距离和驾车时间的路径优化
 
-Core Features
-1. Algorithm Optimization Engine
-Simulated Annealing Algorithm: Efficiently solves large-scale path optimization problems
+## 项目结构
 
-Exact Algorithm: Provides optimal solutions for small-scale problems (≤12 points)
+```
+├── optimized_route_planner.py # 主程序文件，包含完整的路径规划系统
+├── amap_api.py               # 高德地图API客户端
+├── map.py                    # 地图显示模块
+├── plan.py                   # 基础路径规划算法
+├── points.txt                # 坐标点数据文件(示例)
+├── README.md                 # 项目说明文档
+└── icon/                     # 图标资源目录
+```
 
-Local Search Optimization: Incorporates 2-opt neighborhood search to further improve path quality
+## 技术栈
+- **Python 3.x**：核心开发语言
+- **tkinter**：构建交互式用户界面
+- **matplotlib**：数据可视化
+- **requests**：HTTP请求处理(高德地图API调用)
+- **PyQt5(可选)**：高级GUI组件和Web视图集成
 
-Distance Caching Mechanism: Enhances performance in repetitive calculation scenarios
+## 快速开始
 
-2. Map Integration
-Amap API: Retrieves actual road distances, travel times, and detailed routes
+### 前提条件
+1. Python 3.6或更高版本
+2. 安装必要的依赖：
+   ```bash
+   pip install matplotlib requests
+   ```
+3. (可选)如需PyQt集成，请安装：
+   ```bash
+   pip install PyQt5
+   ```
 
-Interactive Map Visualization: Intuitively displays candidate points and optimal paths
+### 使用方法
 
-Multi-platform Support: Compatible with standalone browser display and PyQt integrated display
+1. **准备数据文件**
+   在项目目录下创建`points.txt`文件，格式如下：
+   ```
+   [starts]
+   # 起点坐标（经度,纬度）
+   116.397428,39.90923
+   
+   [waypoints]
+   # 途经点坐标
+   116.404,39.915
+   116.417,39.908
+   
+   [ends]
+   # 终点坐标
+   116.473168,39.993015
+   ```
 
-3. User Interface
-Interactive Control Panel: Supports parameter adjustment, optimization target selection, and result display
+2. **配置高德地图API**
+   在`amap_api.py`和`map.py`文件中，设置您的API密钥：
+   ```python
+   API_KEY = "您的高德地图API密钥"
+   ```
 
-Data Import: Reads starting points, waypoints, and destination data from text files
+3. **运行程序**
+   ```bash
+   python optimized_route_planner.py
+   ```
 
-Multi-objective Optimization: Supports path optimization based on straight-line distance, driving distance, and driving time
+4. **使用界面进行路径规划**
+   - 加载数据文件
+   - 选择优化目标（直线距离/驾车距离/驾车时间）
+   - 调整算法参数
+   - 点击"开始规划"按钮
+   - 查看和比较不同的路径方案
 
-Project Structure
-text
-├── optimized_route_planner.py # Main program file, containing complete path planning system
-├── amap_api.py               # Amap API client
-├── map.py                    # Map display module
-├── plan.py                   # Basic path planning algorithms
-├── points.txt                # Coordinate data file (example)
-├── README.md                 # Project documentation
-└── icon/                     # Icon resources directory
-Technology Stack
-Python 3.x: Core development language
+## 算法参数说明
 
-tkinter: Builds interactive user interface
+| 参数 | 描述 | 默认值 | 推荐范围 |
+|------|------|--------|----------|
+| 种群大小 | 遗传算法的种群规模 | 100 | 50-200 |
+| 冷却率 | 模拟退火算法的温度下降率 | 0.995 | 0.95-0.999 |
+| 初始温度 | 模拟退火算法的初始温度 | 10000.0 | 1000-100000 |
+| 最大迭代次数 | 算法的最大迭代次数 | 100000 | 10000-1000000 |
+| 启用缓存 | 是否启用距离计算缓存 | True | - |
+| 局部搜索 | 是否启用2-opt局部搜索 | True | - |
 
-matplotlib: Data visualization
+## 性能优化
 
-requests: HTTP request processing (Amap API calls)
+- 对于大规模问题(>20个途经点)，推荐使用模拟退火算法并启用距离缓存
+- 对于小规模问题(≤12个途经点)，系统会自动切换到精确算法
+- 可以通过调整冷却率和初始温度来平衡求解速度和路径质量
 
-PyQt5 (optional): Advanced GUI components and web view integration
+## 注意事项
 
-Quick Start
-Prerequisites
-Python 3.6 or higher
+- 使用高德地图API需要有效的API密钥，部分功能可能有使用限制
+- 路径规划结果仅供参考，实际行驶路线可能受实时交通状况影响
+- 数据文件格式必须严格遵守规范，否则可能导致解析错误
+- 大数据量处理时，可能会消耗较多系统资源，请确保您的设备满足要求
 
-Install necessary dependencies:
+## 开发与扩展
 
-bash
-pip install matplotlib requests
-(Optional) For PyQt integration, install:
+本项目设计具有良好的扩展性，您可以：
+- 添加新的优化算法或启发式策略
+- 集成其他地图服务提供商
+- 开发更多可视化功能和分析工具
+- 构建专用的业务应用场景
 
-bash
-pip install PyQt5
-Usage
-Prepare Data File
-Create a points.txt file in the project directory with the following format:
+## License
 
-text
-[starts]
-# Starting point coordinates (longitude,latitude)
-116.397428,39.90923
+本项目采用MIT许可证，详情请参见LICENSE文件。
 
-[waypoints]
-# Waypoint coordinates
-116.404,39.915
-116.417,39.908
+## 致谢
 
-[ends]
-# Destination coordinates
-116.473168,39.993015
-Configure Amap API
-Set your API key in amap_api.py and map.py files:
+- 高德地图API提供地理信息和路径规划服务
+- matplotlib提供数据可视化支持
 
-python
-API_KEY = "Your_Amap_API_Key"
-Run the Program
-
-bash
-python optimized_route_planner.py
-Use the Interface for Path Planning
-
-Load data file
-
-Select optimization target (straight-line distance/driving distance/driving time)
-
-Adjust algorithm parameters
-
-Click "Start Planning" button
-
-View and compare different route solutions
-
-Algorithm Parameters Description
-Parameter	Description	Default Value	Recommended Range
-Population Size	Genetic algorithm population scale	100	50-200
-Cooling Rate	Temperature descent rate for simulated annealing	0.995	0.95-0.999
-Initial Temperature	Initial temperature for simulated annealing	10000.0	1000-100000
-Maximum Iterations	Maximum number of algorithm iterations	100000	10000-1000000
-Enable Cache	Whether to enable distance calculation caching	True	-
-Local Search	Whether to enable 2-opt local search	True	-
-Performance Optimization
-For large-scale problems (>20 waypoints), recommended to use simulated annealing algorithm with distance caching enabled
-
-For small-scale problems (≤12 waypoints), the system automatically switches to exact algorithm
-
-Balance solution speed and path quality by adjusting cooling rate and initial temperature
-
-Notes
-Using Amap API requires a valid API key, some features may have usage restrictions
-
-Path planning results are for reference only; actual driving routes may be affected by real-time traffic conditions
-
-Data file format must strictly follow specifications to avoid parsing errors
-
-Large data processing may consume significant system resources; ensure your device meets requirements
-
-Development & Extension
-This project is designed with good extensibility. You can:
-
-Add new optimization algorithms or heuristic strategies
-
-Integrate other map service providers
-
-Develop more visualization features and analysis tools
-
-Build dedicated business application scenarios
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Acknowledgments
-Amap API for providing geographic information and path planning services
-
-matplotlib for data visualization support
-
-tkinter and PyQt for GUI development frameworks
-
+- tkinter和PyQt提供GUI开发框架
